@@ -292,7 +292,7 @@ const bool Z_ENDSTOPS_INVERTING = false; // set to true to invert the logic of t
 // Mendel90 hobbed bolt and 39:11 Wade's gears
 #define E_STEPS_PER_MM ((3200 * 39.0)/(11.0 * 6.75 * 3.142))
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,200*16/1,E_STEPS_PER_MM} }  // default steps per unit for ultimaker 
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,200*16/1,E_STEPS_PER_MM}  // default steps per unit for ultimaker 
 #define DEFAULT_MAX_FEEDRATE          {400, 400, 4, 30}    // (mm/sec)    
 #define DEFAULT_MAX_ACCELERATION      {4000,4000,150,5000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
 
