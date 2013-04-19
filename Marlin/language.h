@@ -30,8 +30,8 @@
 	#define MACHINE_NAME "Rumba"
 	#define FIRMWARE_URL "https://github.com/ErikZalm/Marlin/"
 #else
-	#define MACHINE_NAME "Mendel"
-	#define FIRMWARE_URL "http://www.mendel-parts.com"
+	#define MACHINE_NAME "Mendel90"
+	#define FIRMWARE_URL "https://github.com/ErikZalm/Marlin/"
 #endif
 
 #define STRINGIFY_(n) #n
