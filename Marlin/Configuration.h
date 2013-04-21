@@ -281,7 +281,7 @@ const bool Z_ENDSTOPS_INVERTING = false; // set to true to invert the logic of t
 //Manual homing switch locations:
 #define MANUAL_X_HOME_POS (X_MIN_POS - 1)
 #define MANUAL_Y_HOME_POS (Y_MIN_POS - 1)
-#define MANUAL_Z_HOME_POS (203.8)
+#define MANUAL_Z_HOME_POS (203.9)
 
 //// MOVEMENT SETTINGS
 #define NUM_AXIS 4 // The axis order in all axis related arrays is X, Y, Z, E
