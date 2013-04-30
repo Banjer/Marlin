@@ -816,25 +816,26 @@ void lcd_update()
 #endif//ULTIPANEL
         
 #ifdef DOGLCD        // Changes due to different driver architecture of the DOGM display
-		blink++;	   // Variable for fan animation and alive dot
-		u8g.firstPage();
-		do {
-				u8g.setFont(u8g_font_6x10_marlin);
-				u8g.setPrintPos(125,0);
-				if (blink % 2) u8g.setColorIndex(1); else u8g.setColorIndex(0); // Set color for the alive dot
-				u8g.drawPixel(127,63);	// draw alive dot
-				u8g.setColorIndex(1);	// black on white
-				(*currentMenu)();
-				if (!lcdDrawUpdate)  break; // Terminate display update, when nothing new to draw. This must be done before the last dogm.next()
-		   } while( u8g.nextPage() );
+        blink++;     // Variable for fan animation and alive dot
+        u8g.firstPage();
+        do 
+        {
+            u8g.setFont(u8g_font_6x10_marlin);
+            u8g.setPrintPos(125,0);
+            if (blink % 2) u8g.setColorIndex(1); else u8g.setColorIndex(0); // Set color for the alive dot
+            u8g.drawPixel(127,63); // draw alive dot
+            u8g.setColorIndex(1); // black on white
+            (*currentMenu)();
+            if (!lcdDrawUpdate)  break; // Terminate display update, when nothing new to draw. This must be done before the last dogm.next()
+        } while( u8g.nextPage() );
 #else        
         (*currentMenu)();
 #endif
 
-
 #ifdef LCD_HAS_STATUS_INDICATORS
         lcd_implementation_update_indicators();
-#endif        
+#endif
+
         
 #ifdef ULTIPANEL
         if(timeoutToStatus < millis() && currentMenu != lcd_status_screen)
@@ -944,6 +945,13 @@ void lcd_buttons_update()
         }
     }
     lastEncoderBits = enc;
+}
+
+void lcd_buzz(long duration, uint16_t freq)
+{ 
+#ifdef LCD_USE_I2C_BUZZER
+  lcd.buzz(duration,freq);
+#endif   
 }
 
 bool lcd_clicked() 
