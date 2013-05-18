@@ -76,7 +76,11 @@ static void menu_action_setting_edit_callback_float51(const char* pstr, float* p
 static void menu_action_setting_edit_callback_float52(const char* pstr, float* ptr, float minValue, float maxValue, menuFunc_t callbackFunc);
 static void menu_action_setting_edit_callback_long5(const char* pstr, unsigned long* ptr, unsigned long minValue, unsigned long maxValue, menuFunc_t callbackFunc);
 
-#define ENCODER_STEPS_PER_MENU_ITEM 5
+#if !defined(LCD_I2C_VIKI)
+  #define ENCODER_STEPS_PER_MENU_ITEM 5
+#else
+  #define ENCODER_STEPS_PER_MENU_ITEM 2 // VIKI LCD rotary encoder uses a different number of steps per rotation
+#endif
 
 /* Helper macros for menus */
 #define START_MENU() do { \
@@ -252,6 +256,7 @@ void lcd_preheat_pla()
     setTargetBed(plaPreheatHPBTemp);
     fanSpeed = plaPreheatFanSpeed;
     lcd_return_to_status();
+	setWatch();	// heater sanity check timer
 }
 
 void lcd_preheat_abs()
@@ -262,6 +267,16 @@ void lcd_preheat_abs()
     setTargetBed(absPreheatHPBTemp);
     fanSpeed = absPreheatFanSpeed;
     lcd_return_to_status();
+	setWatch();	// heater sanity check timer
+}
+
+static void lcd_cooldown()
+{
+	setTargetHotend0(0);
+	setTargetHotend1(0);
+	setTargetHotend2(0);
+	setTargetBed(0);
+	lcd_return_to_status();
 }
 
 static void lcd_tune_menu()
@@ -299,7 +314,7 @@ static void lcd_prepare_menu()
     //MENU_ITEM(gcode, MSG_SET_ORIGIN, PSTR("G92 X0 Y0 Z0"));
     MENU_ITEM(function, MSG_PREHEAT_PLA, lcd_preheat_pla);
     MENU_ITEM(function, MSG_PREHEAT_ABS, lcd_preheat_abs);
-    MENU_ITEM(gcode, MSG_COOLDOWN, PSTR("M104 S0\nM140 S0"));
+    MENU_ITEM(function, MSG_COOLDOWN, lcd_cooldown);
     MENU_ITEM(submenu, MSG_MOVE_AXIS, lcd_move_menu);
     END_MENU();
 }
