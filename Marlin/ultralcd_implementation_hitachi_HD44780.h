@@ -6,7 +6,11 @@
 * When selecting the rusian language, a slightly different LCD implementation is used to handle UTF8 characters.
 **/
 
+#ifndef REPRAPWORLD_KEYPAD
 extern volatile uint8_t buttons;  //the last checked buttons in a bit array.
+#else
+extern volatile uint16_t buttons;  //an extended version of the last checked buttons in a bit array.
+#endif
 
 ////////////////////////////////////
 // Setup button and encode mappings for each panel (into 'buttons' variable)
@@ -55,7 +59,7 @@ extern volatile uint8_t buttons;  //the last checked buttons in a bit array.
 
 #elif defined(LCD_I2C_PANELOLU2)
   // encoder click can be read through I2C if not directly connected
-  #if !defined(BTN_ENC) || BTN_ENC == -1 
+  #if BTN_ENC <= 0 
     #define B_I2C_BTN_OFFSET 3 // (the first three bit positions reserved for EN_A, EN_B, EN_C)
   
     #define B_MI (PANELOLU2_ENCODER_C<<B_I2C_BTN_OFFSET) // requires LiquidTWI2 library v1.2.3 or later
@@ -67,6 +71,33 @@ extern volatile uint8_t buttons;  //the last checked buttons in a bit array.
   #else
     #define LCD_CLICKED (buttons&EN_C)  
   #endif
+
+#elif defined(REPRAPWORLD_KEYPAD)
+    // define register bit values, don't change it
+    #define BLEN_REPRAPWORLD_KEYPAD_F3 0
+    #define BLEN_REPRAPWORLD_KEYPAD_F2 1
+    #define BLEN_REPRAPWORLD_KEYPAD_F1 2
+    #define BLEN_REPRAPWORLD_KEYPAD_UP 3
+    #define BLEN_REPRAPWORLD_KEYPAD_RIGHT 4
+    #define BLEN_REPRAPWORLD_KEYPAD_MIDDLE 5
+    #define BLEN_REPRAPWORLD_KEYPAD_DOWN 6
+    #define BLEN_REPRAPWORLD_KEYPAD_LEFT 7
+    
+    #define REPRAPWORLD_BTN_OFFSET 3 // bit offset into buttons for shift register values
+
+    #define EN_REPRAPWORLD_KEYPAD_F3 (1<<(BLEN_REPRAPWORLD_KEYPAD_F3+REPRAPWORLD_BTN_OFFSET))
+    #define EN_REPRAPWORLD_KEYPAD_F2 (1<<(BLEN_REPRAPWORLD_KEYPAD_F2+REPRAPWORLD_BTN_OFFSET))
+    #define EN_REPRAPWORLD_KEYPAD_F1 (1<<(BLEN_REPRAPWORLD_KEYPAD_F1+REPRAPWORLD_BTN_OFFSET))
+    #define EN_REPRAPWORLD_KEYPAD_UP (1<<(BLEN_REPRAPWORLD_KEYPAD_UP+REPRAPWORLD_BTN_OFFSET))
+    #define EN_REPRAPWORLD_KEYPAD_RIGHT (1<<(BLEN_REPRAPWORLD_KEYPAD_RIGHT+REPRAPWORLD_BTN_OFFSET))
+    #define EN_REPRAPWORLD_KEYPAD_MIDDLE (1<<(BLEN_REPRAPWORLD_KEYPAD_MIDDLE+REPRAPWORLD_BTN_OFFSET))
+    #define EN_REPRAPWORLD_KEYPAD_DOWN (1<<(BLEN_REPRAPWORLD_KEYPAD_DOWN+REPRAPWORLD_BTN_OFFSET))
+    #define EN_REPRAPWORLD_KEYPAD_LEFT (1<<(BLEN_REPRAPWORLD_KEYPAD_LEFT+REPRAPWORLD_BTN_OFFSET))
+
+    #define LCD_CLICKED ((buttons&EN_C) || (buttons&EN_REPRAPWORLD_KEYPAD_F1))
+    #define REPRAPWORLD_KEYPAD_MOVE_Y_DOWN (buttons&EN_REPRAPWORLD_KEYPAD_DOWN)
+    #define REPRAPWORLD_KEYPAD_MOVE_Y_UP (buttons&EN_REPRAPWORLD_KEYPAD_UP)
+    #define REPRAPWORLD_KEYPAD_MOVE_HOME (buttons&EN_REPRAPWORLD_KEYPAD_MIDDLE)
 
 #elif defined(NEWPANEL)
   #define LCD_CLICKED (buttons&EN_C)
@@ -90,7 +121,7 @@ extern volatile uint8_t buttons;  //the last checked buttons in a bit array.
   #define B_ST (1<<BL_ST)
   
   #define LCD_CLICKED (buttons&(B_MI|B_ST))
-#endif//else NEWPANEL
+#endif
 
 ////////////////////////
 // Setup Rotary Encoder Bit Values (for two pin encoders to indicate movement)
@@ -267,12 +298,12 @@ static void lcd_implementation_init()
   #endif
   
 #elif defined(LCD_I2C_TYPE_MCP23017)
-  	lcd.setMCPType(LTI_TYPE_MCP23017);
+    lcd.setMCPType(LTI_TYPE_MCP23017);
     lcd.begin(LCD_WIDTH, LCD_HEIGHT);
     lcd.setBacklight(0); //set all the LEDs off to begin with
     
 #elif defined(LCD_I2C_TYPE_MCP23008)
-  	lcd.setMCPType(LTI_TYPE_MCP23008);
+    lcd.setMCPType(LTI_TYPE_MCP23008);
     lcd.begin(LCD_WIDTH, LCD_HEIGHT);
     
 #else
@@ -466,9 +497,9 @@ static void lcd_implementation_drawmenu_generic(uint8_t row, const char* pstr, c
     char c;
     //Use all characters in narrow LCDs
   #if LCD_WIDTH < 20
-    	uint8_t n = LCD_WIDTH - 1 - 1;
+      uint8_t n = LCD_WIDTH - 1 - 1;
     #else
-    	uint8_t n = LCD_WIDTH - 1 - 2;
+      uint8_t n = LCD_WIDTH - 1 - 2;
   #endif
     lcd.setCursor(0, row);
     lcd.print(pre_char);
@@ -488,9 +519,9 @@ static void lcd_implementation_drawmenu_setting_edit_generic(uint8_t row, const 
     char c;
     //Use all characters in narrow LCDs
   #if LCD_WIDTH < 20
-    	uint8_t n = LCD_WIDTH - 1 - 1 - strlen(data);
+      uint8_t n = LCD_WIDTH - 1 - 1 - strlen(data);
     #else
-    	uint8_t n = LCD_WIDTH - 1 - 2 - strlen(data);
+      uint8_t n = LCD_WIDTH - 1 - 2 - strlen(data);
   #endif
     lcd.setCursor(0, row);
     lcd.print(pre_char);
@@ -510,9 +541,9 @@ static void lcd_implementation_drawmenu_setting_edit_generic_P(uint8_t row, cons
     char c;
     //Use all characters in narrow LCDs
   #if LCD_WIDTH < 20
-    	uint8_t n = LCD_WIDTH - 1 - 1 - strlen_P(data);
+      uint8_t n = LCD_WIDTH - 1 - 1 - strlen_P(data);
     #else
-    	uint8_t n = LCD_WIDTH - 1 - 2 - strlen_P(data);
+      uint8_t n = LCD_WIDTH - 1 - 2 - strlen_P(data);
   #endif
     lcd.setCursor(0, row);
     lcd.print(pre_char);
@@ -569,9 +600,9 @@ void lcd_implementation_drawedit(const char* pstr, char* value)
     lcd_printPGM(pstr);
     lcd.print(':');
    #if LCD_WIDTH < 20
-    	lcd.setCursor(LCD_WIDTH - strlen(value), 1);
+      lcd.setCursor(LCD_WIDTH - strlen(value), 1);
     #else
-    	lcd.setCursor(LCD_WIDTH -1 - strlen(value), 1);
+      lcd.setCursor(LCD_WIDTH -1 - strlen(value), 1);
    #endif
     lcd.print(value);
 }
@@ -689,11 +720,11 @@ static void lcd_implementation_update_indicators()
     //set the LEDS - referred to as backlights by the LiquidTWI2 library 
     static uint8_t ledsprev = 0;
     uint8_t leds = 0;
-    if (isHeatingBed()) leds |= LED_A;
-    if (isHeatingHotend(0)) leds |= LED_B;
+    if (target_temperature_bed > 0) leds |= LED_A;
+    if (target_temperature[0] > 0) leds |= LED_B;
     if (fanSpeed) leds |= LED_C;
     #if EXTRUDERS > 1  
-      if (isHeatingHotend(1)) leds |= LED_C;
+      if (target_temperature[1] > 0) leds |= LED_C;
     #endif
     if (leds != ledsprev) {
       lcd.setBacklight(leds);

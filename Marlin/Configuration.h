@@ -51,6 +51,9 @@
 #define MOTHERBOARD 7
 #endif
 
+// This defines the number of extruders
+#define EXTRUDERS 1
+
 //// The following define selects which power supply you have. Please choose the one that matches your setup
 // 1 = ATX
 // 2 = X-Box 360 203Watts (the blue wire connected to PS_ON and the red wire to VCC)
@@ -90,7 +93,7 @@
 #define TEMP_SENSOR_BED 0
 
 // Actual temperature must be close to target for this long before M109 returns success
-#define TEMP_RESIDENCY_TIME 10	// (seconds)
+#define TEMP_RESIDENCY_TIME 10  // (seconds)
 #define TEMP_HYSTERESIS 3       // (degC) range of +/- temperatures considered "close" to the target one
 #define TEMP_WINDOW     1       // (degC) Window around target to start the recidency timer x degC early.
 
@@ -318,15 +321,15 @@ const bool Z_ENDSTOPS_INVERTING = true; // set to true to invert the logic of th
 // Preheat Constants
 #define PLA_PREHEAT_HOTEND_TEMP 180 
 #define PLA_PREHEAT_HPB_TEMP 70
-#define PLA_PREHEAT_FAN_SPEED 255		// Insert Value between 0 and 255
+#define PLA_PREHEAT_FAN_SPEED 255   // Insert Value between 0 and 255
 
 #define ABS_PREHEAT_HOTEND_TEMP 240
 #define ABS_PREHEAT_HPB_TEMP 100
-#define ABS_PREHEAT_FAN_SPEED 255		// Insert Value between 0 and 255
+#define ABS_PREHEAT_FAN_SPEED 255   // Insert Value between 0 and 255
 
 //LCD and SD support
 //#define ULTRA_LCD  //general lcd support, also 16x2
-//#define DOGLCD	// Support for SPI LCD 128x64 (Controller ST7565R graphic Display Family)
+//#define DOGLCD  // Support for SPI LCD 128x64 (Controller ST7565R graphic Display Family)
 //#define SDSUPPORT // Enable SD Card Support in Hardware Console
 //#define SDSLOW // Use slower SD transfer mode (not normally needed - uncomment if you're getting volume init error)
 
@@ -414,22 +417,22 @@ const bool Z_ENDSTOPS_INVERTING = true; // set to true to invert the logic of th
 //  #define NEWPANEL  //enable this if you have a click-encoder panel
   #define SDSUPPORT
   #define ULTRA_LCD
-	#ifdef DOGLCD	// Change number of lines to match the DOG graphic display
-		#define LCD_WIDTH 20
-		#define LCD_HEIGHT 5
-	#else
-		#define LCD_WIDTH 20
-		#define LCD_HEIGHT 4
-	#endif
+  #ifdef DOGLCD // Change number of lines to match the DOG graphic display
+    #define LCD_WIDTH 20
+    #define LCD_HEIGHT 5
+  #else
+    #define LCD_WIDTH 20
+    #define LCD_HEIGHT 4
+  #endif
 #else //no panel but just lcd
   #ifdef ULTRA_LCD
-	#ifdef DOGLCD	// Change number of lines to match the 128x64 graphics display
-		#define LCD_WIDTH 20
-		#define LCD_HEIGHT 5
-	#else
-		#define LCD_WIDTH 16
-		#define LCD_HEIGHT 2
-	#endif
+  #ifdef DOGLCD // Change number of lines to match the 128x64 graphics display
+    #define LCD_WIDTH 20
+    #define LCD_HEIGHT 5
+  #else
+    #define LCD_WIDTH 16
+    #define LCD_HEIGHT 2
+  #endif
   #endif
 #endif
 

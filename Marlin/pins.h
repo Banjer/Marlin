@@ -274,11 +274,11 @@
     //#define RX_ENABLE_PIN       13
 
     #define BEEPER -1
-	#define SDCARDDETECT -1
-    #define SUICIDE_PIN -1            //has to be defined; otherwise Power_off doesn't work
+    #define SDCARDDETECT -1
+    #define SUICIDE_PIN -1    //has to be defined; otherwise Power_off doesn't work
 
     #define KILL_PIN -1
-	//Pins for 4bit LCD Support
+    //Pins for 4bit LCD Support
     #define LCD_PINS_RS 18
     #define LCD_PINS_ENABLE 17
     #define LCD_PINS_D4 16
@@ -291,14 +291,6 @@
     #define BTN_EN2 10
     #define BTN_ENC 12  //the click
 
-    #define BLEN_C 2
-    #define BLEN_B 1
-    #define BLEN_A 0
-
-    #define encrot0 0
-    #define encrot1 2
-    #define encrot2 3
-    #define encrot3 1
 #endif
 
 /****************************************************************************************
@@ -391,7 +383,7 @@
 #ifdef ULTRA_LCD
 
   #ifdef NEWPANEL
-    #define LCD_PINS_RS 16
+    #define LCD_PINS_RS 16 
     #define LCD_PINS_ENABLE 17
     #define LCD_PINS_D4 23
     #define LCD_PINS_D5 25
@@ -418,16 +410,7 @@
         #define SHIFT_OUT 40 // shift register
         #define SHIFT_CLK 44 // shift register
         #define SHIFT_LD 42 // shift register
-        // define register bit values, don't change it
-        #define BLEN_REPRAPWORLD_KEYPAD_F3 0
-        #define BLEN_REPRAPWORLD_KEYPAD_F2 1
-        #define BLEN_REPRAPWORLD_KEYPAD_F1 2
-        #define BLEN_REPRAPWORLD_KEYPAD_UP 3
-        #define BLEN_REPRAPWORLD_KEYPAD_RIGHT 4
-        #define BLEN_REPRAPWORLD_KEYPAD_MIDDLE 5
-        #define BLEN_REPRAPWORLD_KEYPAD_DOWN 6
-        #define BLEN_REPRAPWORLD_KEYPAD_LEFT 7
-	  #else
+      #else
         #define BTN_EN1 37
         #define BTN_EN2 35
         #define BTN_ENC 31  //the click
@@ -457,26 +440,7 @@
     #define LCD_PINS_D5 25
     #define LCD_PINS_D6 27
     #define LCD_PINS_D7 29
-
-    //encoder rotation values
-    #define encrot0 0
-    #define encrot1 2
-    #define encrot2 3
-    #define encrot3 1
-
-
-    //bits in the shift register that carry the buttons for:
-    // left up center down right red
-    #define BL_LE 7
-    #define BL_UP 6
-    #define BL_MI 5
-    #define BL_DW 4
-    #define BL_RI 3
-    #define BL_ST 2
-
-    #define BLEN_B 1
-    #define BLEN_A 0
-  #endif
+  #endif 
 #endif //ULTRA_LCD
 
 #else // RAMPS_V_1_1 or RAMPS_V_1_2 as default (MOTHERBOARD == 3)
@@ -771,30 +735,10 @@
      //The encoder and click button
      #define BTN_EN1 11  
      #define BTN_EN2 10 
-     #ifdef LCD_I2C_PANELOLU2
-       #ifdef MELZI
-         #define BTN_ENC 29 //the click switch
-         #define SDSS 30 //to use the SD card reader on the Panelolu2 rather than the melzi board
-       #else
-         #define BTN_ENC 30 //the click switch
-       #endif
-     #else
-       #define BTN_ENC 16  //the click switch
-     #endif //Panelolu2
+     #define BTN_ENC 16  //the switch
      //not connected to a pin
      #define SDCARDDETECT -1    
-
-     //from the same bit in the RAMPS Newpanel define
-     //encoder rotation values
-     #define encrot0 0
-     #define encrot1 2
-     #define encrot2 3
-     #define encrot3 1
-
-     #define BLEN_C 2
-     #define BLEN_B 1
-     #define BLEN_A 0
-
+    
    #endif //Newpanel
  #endif //Ultipanel
 
@@ -878,18 +822,9 @@
     #define BTN_EN1 40
     #define BTN_EN2 42
     #define BTN_ENC 19  //the click
-
-    #define BLEN_C 2
-    #define BLEN_B 1
-    #define BLEN_A 0
-
+    
     #define SDCARDDETECT 38
-
-      //encoder rotation values
-    #define encrot0 0
-    #define encrot1 2
-    #define encrot2 3
-    #define encrot3 1
+    
   #else //old style panel with shift register
     //arduino pin witch triggers an piezzo beeper
     #define BEEPER 18
@@ -906,34 +841,9 @@
     #define LCD_PINS_D5 21
     #define LCD_PINS_D6 20
     #define LCD_PINS_D7 19
-
-    //encoder rotation values
-    #ifndef ULTIMAKERCONTROLLER
-     #define encrot0 0
-     #define encrot1 2
-     #define encrot2 3
-     #define encrot3 1
-    #else
-     #define encrot0 0
-     #define encrot1 1
-     #define encrot2 3
-     #define encrot3 2
-
-    #endif
-
+  
     #define SDCARDDETECT -1
-    //bits in the shift register that carry the buttons for:
-    // left up center down right red
-    #define BL_LE 7
-    #define BL_UP 6
-    #define BL_MI 5
-    #define BL_DW 4
-    #define BL_RI 3
-    #define BL_ST 2
-
-    #define BLEN_B 1
-    #define BLEN_A 0
-  #endif
+  #endif 
 #endif //ULTRA_LCD
 
 #endif
@@ -1627,18 +1537,8 @@
     #define BTN_EN1 59
     #define BTN_EN2 64
     #define BTN_ENC 43  //the click
-
-    #define BLEN_C 2
-    #define BLEN_B 1
-    #define BLEN_A 0
-
+    
     #define SDCARDDETECT -1   // Ramps does not use this port
-
-      //encoder rotation values
-    #define encrot0 0
-    #define encrot1 2
-    #define encrot2 3
-    #define encrot3 1
 #endif
 #endif //ULTRA_LCD
 
