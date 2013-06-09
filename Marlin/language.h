@@ -9,7 +9,7 @@
 // Languages
 // 1  English
 // 2  Polish
-// 3  French	(awaiting translation!)
+// 3  French
 // 4  German
 // 5  Spanish
 // 6  Russian
@@ -30,8 +30,8 @@
 	#define MACHINE_NAME "Rumba"
 	#define FIRMWARE_URL "https://github.com/ErikZalm/Marlin/"
 #else
-	#define MACHINE_NAME "Mendel90"
-	#define FIRMWARE_URL "https://github.com/ErikZalm/Marlin/"
+	#define MACHINE_NAME "Mendel"
+	#define FIRMWARE_URL "http://www.mendel-parts.com"
 #endif
 
 #define STRINGIFY_(n) #n

@@ -48,6 +48,7 @@
 // 90 = Alpha OMCA board
 // 91 = Final OMCA board
 // 301 = Rambo
+// 21 = Elefu Ra Board (v3)
 
 #ifndef MOTHERBOARD
 #define MOTHERBOARD 63
@@ -92,9 +93,13 @@
 // 55 is 100k thermistor - ATC Semitec 104GT-2 (Used in ParCan) (1k pullup)
 
 #define TEMP_SENSOR_0 11
-#define TEMP_SENSOR_1 0
+#define TEMP_SENSOR_1 -1
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_BED 12
+
+// This makes temp sensor 1 a redundant sensor for sensor 0. If the temperatures difference between these sensors is to high the print will be aborted.
+//#define TEMP_SENSOR_1_AS_REDUNDANT 
+#define MAX_REDUNDANT_TEMP_SENSOR_DIFF 10
 
 // Actual temperature must be close to target for this long before M109 returns success
 #define TEMP_RESIDENCY_TIME 60	// (seconds)
@@ -368,6 +373,11 @@ const bool Z_ENDSTOPS_INVERTING = false; // set to true to invert the logic of t
 //#define REPRAPWORLD_KEYPAD
 //#define REPRAPWORLD_KEYPAD_MOVE_STEP 10.0 // how much should be moved when a key is pressed, eg 10.0 means 10mm per click
 
+// The Elefu RA Board Control Panel
+// http://www.elefu.com/index.php?route=product/product&product_id=53
+// REMEMBER TO INSTALL LiquidCrystal_I2C.h in your ARUDINO library folder: https://github.com/kiyoshigawa/LiquidCrystal_I2C
+//#define RA_CONTROL_PANEL
+
 //automatic expansion
 #if defined (REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER)
  #define DOGLCD
@@ -383,6 +393,12 @@ const bool Z_ENDSTOPS_INVERTING = false; // set to true to invert the logic of t
 #if defined(REPRAPWORLD_KEYPAD)
   #define NEWPANEL
   #define ULTIPANEL
+#endif
+#if defined(RA_CONTROL_PANEL)
+ #define ULTIPANEL
+ #define NEWPANEL
+ #define LCD_I2C_TYPE_PCA8574
+ #define LCD_I2C_ADDRESS 0x27   // I2C Address of the port expander
 #endif
 
 //I2C PANELS
@@ -477,7 +493,15 @@ const bool Z_ENDSTOPS_INVERTING = false; // set to true to invert the logic of t
 // leaving it undefined or defining as 0 will disable the servo subsystem
 // If unsure, leave commented / disabled
 //
-// #define NUM_SERVOS 3
+//#define NUM_SERVOS 3 // Servo index starts with 0
+
+// Servo Endstops
+// 
+// This allows for servo actuated endstops, primary usage is for the Z Axis to eliminate calibration or bed height changes.
+// Use M206 command to correct for switch height offset to actual nozzle height. Store that setting with M500.
+// 
+//#define SERVO_ENDSTOPS {-1, -1, 0} // Servo index for X, Y, Z. Disable with -1
+//#define SERVO_ENDSTOP_ANGLES {0,0, 0,0, 70,0} // X,Y,Z Axis Extend and Retract angles
 
 #include "Configuration_adv.h"
 #include "thermistortables.h"
