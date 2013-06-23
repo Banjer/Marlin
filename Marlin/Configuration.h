@@ -286,6 +286,7 @@ const bool X_ENDSTOPS_INVERTING = false; // set to true to invert the logic of t
 const bool Y_ENDSTOPS_INVERTING = false; // set to true to invert the logic of the endstops. 
 const bool Z_ENDSTOPS_INVERTING = false; // set to true to invert the logic of the endstops. 
 //#define DISABLE_MAX_ENDSTOPS
+//#define DISABLE_MIN_ENDSTOPS
 
 // Disable max endstops for compatibility with endstop checking routine
 #if defined(COREXY) && !defined(DISABLE_MAX_ENDSTOPS)
