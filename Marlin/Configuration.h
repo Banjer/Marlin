@@ -125,6 +125,7 @@
 // 8 is 100k 0603 SMD Vishay NTCS0603E3104FXT (4.7k pullup)
 // 9 is 100k GE Sensing AL03006-58.2K-97-G1 (4.7k pullup)
 // 10 is 100k RS thermistor 198-961 (4.7k pullup)
+// 60 is 100k Maker's Tool Works Kapton Bed Thermister
 // 11 is Epcos B57560G104F 100K
 // 12 is Epcos B57861S104F40 100K 155C for bed only
 //
