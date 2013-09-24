@@ -160,10 +160,11 @@
   #define PID_dT ((16.0 * 8.0)/(F_CPU / 64.0 / 256.0)) //sampling period of the temperature routine
 
 // If you are using a preconfigured hotend then you can use one of the value sets by uncommenting it
-// J-Head Mk IV-B
-    #define  DEFAULT_Kp 34.19
-    #define  DEFAULT_Ki 2.47  
-    #define  DEFAULT_Kd 118.19 
+// J-Head Mk V-B
+    #define  DEFAULT_Kp 25.05
+    #define  DEFAULT_Ki 2.30
+    #define  DEFAULT_Kd 68.15
+
 
 // Ultimaker
 //    #define  DEFAULT_Kp 22.2
@@ -327,7 +328,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 
 //// MOVEMENT SETTINGS
 #define NUM_AXIS 4 // The axis order in all axis related arrays is X, Y, Z, E
-#define HOMING_FEEDRATE {50*60, 50*60, 4*60, 0}  // set the homing speeds (mm/min)
+#define HOMING_FEEDRATE {35*60, 35*60, 4*60, 0}  // set the homing speeds (mm/min)
 
 // default settings
 
@@ -337,9 +338,9 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 
 #define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,200*16/1,534.95}  // default steps per unit for ultimaker 
 #define DEFAULT_MAX_FEEDRATE          {400, 400, 4, 30}    // (mm/sec)    
-#define DEFAULT_MAX_ACCELERATION      {4000,4000,150,5000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
+#define DEFAULT_MAX_ACCELERATION      {2000,2000,150,5000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
 
-#define DEFAULT_ACCELERATION          4000    // X, Y, Z and E max acceleration in mm/s^2 for printing moves 
+#define DEFAULT_ACCELERATION          2000    // X, Y, Z and E max acceleration in mm/s^2 for printing moves 
 #define DEFAULT_RETRACT_ACCELERATION  5000   // X, Y, Z and E max acceleration in mm/s^2 for r retracts
 
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
