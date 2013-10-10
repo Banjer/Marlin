@@ -64,7 +64,7 @@
 // When first starting the main fan, run it at full speed for the
 // given number of milliseconds.  This gets the fan spinning reliably
 // before setting a PWM value. (Does not work with software PWM for fan on Sanguinololu)
-//#define FAN_KICKSTART_TIME 100
+#define FAN_KICKSTART_TIME 100
 
 // Extruder cooling fans
 // Configure fan pin outputs to automatically turn on/off when the associated
@@ -275,7 +275,7 @@
 // Babystepping enables the user to control the axis in tiny amounts, independently from the normal printing process
 // it can e.g. be used to change z-positions in the print startup phase in realtime
 // does not respect endstops!
-//#define BABYSTEPPING
+#define BABYSTEPPING
 #ifdef BABYSTEPPING
   #define BABYSTEP_XY  //not only z, but also XY in the menu. more clutter, more functions
   #define BABYSTEP_INVERT_Z false  //true for inverse movements in Z
