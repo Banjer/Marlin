@@ -120,8 +120,9 @@
 // 8 is 100k 0603 SMD Vishay NTCS0603E3104FXT (4.7k pullup)
 // 9 is 100k GE Sensing AL03006-58.2K-97-G1 (4.7k pullup)
 // 10 is 100k RS thermistor 198-961 (4.7k pullup)
-// 11 is Epcos B57560G104F 100K
-// 12 is Epcos B57861S104F40 100K 155C for bed only
+// 11 is 100k beta 3950 1% thermistor (4.7k pullup)
+// 12 is Epcos B57560G104F 100K
+// 13 is Epcos B57861S104F40 100K 155C for bed only
 // 20 is the PT100 circuit found in the Ultimainboard V2.x
 // 60 is 100k Maker's Tool Works Kapton Bed Thermistor beta=3950
 //
@@ -136,10 +137,10 @@
 // 147 is Pt100 with 4k7 pullup
 // 110 is Pt100 with 1k pullup (non standard)
 
-#define TEMP_SENSOR_0 11
+#define TEMP_SENSOR_0 12
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
-#define TEMP_SENSOR_BED 12
+#define TEMP_SENSOR_BED 13
 
 // This makes temp sensor 1 a redundant sensor for sensor 0. If the temperatures difference between these sensors is to high the print will be aborted.
 //#define TEMP_SENSOR_1_AS_REDUNDANT
